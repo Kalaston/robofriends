@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import CardList from "../components/CardList";
-import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
+import { connect } from "react-redux";
+import SearchBox from "../components/SearchBox";
+import { setSearchField } from "../actions/index";
 import "./App.css";
 
 class App extends Component {
@@ -9,38 +11,40 @@ class App extends Component {
     super(props);
     this.state = {
       robots: [],
-      search: ""
+      searchField: ""
     };
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
+    console.log(this.props);
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(response => response.json())
       .then(myjson => this.setState({ robots: myjson }));
   }
 
-  onChange(e) {
-    this.setState({ search: e.target.value.toLowerCase() });
-  }
-
   render() {
-    const newRobots = this.state.robots.filter(robot => {
-      if (robot.name.toLowerCase().includes(this.state.search)) {
-        return true;
-      }
-      return false;
+    const { robots } = this.state;
+    const { searchField } = this.props;
+    const filteredRobots = robots.filter(robot => {
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
     });
     return (
       <div className="tc">
         <h1 className="f1">Robofriends</h1>
-        <SearchBox onChange={this.onChange} />
+        <SearchBox onChange={this.props.setSearchField} />
         <Scroll>
-          <CardList robots={newRobots} />
+          <CardList robots={filteredRobots} />
         </Scroll>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  searchField: state.searchField
+});
+
+export default connect(
+  mapStateToProps,
+  { setSearchField }
+)(App);
