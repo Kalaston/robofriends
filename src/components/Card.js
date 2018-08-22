@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { shallow, render, mount } from 'enzyme';
 
 const Card = props => {
   const { id, name, email } = props;

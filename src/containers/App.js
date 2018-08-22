@@ -44,7 +44,11 @@ const mapStateToProps = state => ({
   searchField: state.searchField
 });
 
+const mapDispatchToProps = {
+  setSearchField
+};
+
 export default connect(
   mapStateToProps,
-  { setSearchField }
+  mapDispatchToProps
 )(App);

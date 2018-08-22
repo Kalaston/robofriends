@@ -8,7 +8,9 @@ const SearchBox = props => {
         placeholder="Search robots"
         className="pa3 ba b--green bg-lightest-blue"
         onChange={props.onChange}
+        id="searchbox"
       />
+      <label htmlFor="searchbox">Search</label>
     </div>
   );
 };
