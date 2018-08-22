@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const SearchBox = props => {
   return (
@@ -10,6 +10,7 @@ const SearchBox = props => {
         onChange={props.onChange}
         id="searchbox"
       />
+      <br />
       <label htmlFor="searchbox">Search</label>
     </div>
   );
