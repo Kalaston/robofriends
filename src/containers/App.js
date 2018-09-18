@@ -1,23 +1,24 @@
-import React, { Component } from "react";
-import CardList from "../components/CardList";
-import Scroll from "../components/Scroll";
-import { connect } from "react-redux";
-import SearchBox from "../components/SearchBox";
-import { setSearchField } from "../actions/index";
-import "./App.css";
+import React, { Component } from 'react';
+import CardList from '../components/CardList';
+import Scroll from '../components/Scroll';
+import { connect } from 'react-redux';
+import SearchBox from '../components/SearchBox';
+import { setSearchField } from '../actions/index';
+import CounterButton from '../components/CounterButton';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       robots: [],
-      searchField: ""
+      searchField: ''
     };
   }
 
   componentDidMount() {
     console.log(this.props);
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(myjson => this.setState({ robots: myjson }));
   }
@@ -32,6 +33,7 @@ class App extends Component {
       <div className="tc">
         <h1 className="f1">Robofriends</h1>
         <SearchBox onChange={this.props.setSearchField} />
+        <CounterButton color="red" />
         <Scroll>
           <CardList robots={filteredRobots} />
         </Scroll>
